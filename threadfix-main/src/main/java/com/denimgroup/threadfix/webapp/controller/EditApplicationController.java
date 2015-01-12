@@ -31,6 +31,7 @@ import com.denimgroup.threadfix.service.util.ControllerUtils;
 import com.denimgroup.threadfix.service.util.PermissionUtils;
 import com.denimgroup.threadfix.views.AllViews;
 import com.denimgroup.threadfix.webapp.config.FormRestResponse;
+import com.denimgroup.threadfix.webapp.utils.ResourceNotFoundException;
 import com.denimgroup.threadfix.webapp.validator.BeanValidator;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,7 @@ public class EditApplicationController {
 		application.setDefectTracker(databaseApplication.getDefectTracker());
 		application.setUserName(databaseApplication.getUserName());
 		application.setPassword(databaseApplication.getPassword());
+		application.setId(appId);
 		
 		if(!result.hasErrors()) {
 			applicationService.validateAfterEdit(application, result);

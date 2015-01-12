@@ -62,7 +62,7 @@
                 <div class="panel-body" ng-show="editLdapSettings">
                     <table>
                         <tr>
-                            <td style="width:150px" class="no-color">LDAP Search Base</td>
+                            <td style="width:150px" class="no-color">Search Base</td>
                             <td class="no-color">
                                 <form:input id="activeDirectoryBase" path="activeDirectoryBase" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.activeDirectoryBase }"/>
                             </td>
@@ -71,7 +71,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="no-color">LDAP User DN</td>
+                            <td class="no-color">sAMAccountName</td>
                             <td class="no-color">
                                 <form:input id="activeDirectoryUsername" path="activeDirectoryUsername" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.activeDirectoryUsername }"/>
                             </td>
@@ -80,16 +80,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="no-color">LDAP Password</td>
+                            <td class="no-color">Password</td>
                             <td class="no-color">
-                                <form:input id="activeDirectoryCredentials" path="activeDirectoryCredentials" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.activeDirectoryCredentials }"/>
+                                <form:input id="activeDirectoryCredentials" type="password" path="activeDirectoryCredentials" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.activeDirectoryCredentials }"/>
                             </td>
                             <td class="no-color" style="padding-left: 5px">
                                 <form:errors path="activeDirectoryCredentials" cssClass="errors" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="no-color">LDAP URL</td>
+                            <td class="no-color">URL</td>
                             <td class="no-color">
                                 <form:input id="activeDirectoryURL" path="activeDirectoryURL" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.activeDirectoryURL }"/>
                             </td>
@@ -167,6 +167,7 @@
                                 <c:if test="${ empty defaultConfiguration.proxyPasswordEncrypted }">
                                     <form:input ng-disabled="!shouldUseProxyCredentials"
                                                 id="proxyPassword"
+                                                type="password"
                                                 path="proxyPassword"
                                                 cssClass="focus"
                                                 size="60"
@@ -176,6 +177,7 @@
                                 <c:if test="${ not empty defaultConfiguration.proxyPasswordEncrypted }">
                                     <form:input ng-disabled="!shouldUseProxyCredentials"
                                                 id="proxyPassword"
+                                                type="password"
                                                 path="proxyPassword"
                                                 cssClass="focus"
                                                 size="60"
@@ -224,6 +226,30 @@
                 </div>
             </div>
         </c:if>
+
+        <div class="panel panel-default">
+            <div id="defaultSessionTimeoutPermissionsPanel" class="panel-heading pointer" style="width:200px" ng-click="editSessionTimeoutPermissions = !editSessionTimeoutPermissions">
+                <h3 class="panel-title">
+                    <span ng-hide="editSessionTimeoutPermissions" class="icon icon-chevron-right"></span>
+                    <span ng-show="editSessionTimeoutPermissions" class="icon icon-chevron-down"></span>
+                    Session Timeout
+                </h3>
+            </div>
+            <div class="panel-body" ng-show="editSessionTimeoutPermissions">
+                <table>
+                    <tr>
+                        <td style="width:150px" class="no-color">Session Timeout</td>
+                        <td class="no-color">
+                            <form:input id="sessionTimeout" type="number" max="30" min="1" path="sessionTimeout" placeholder="(in minutes)" cssClass="focus" size="60" maxlength="255" value="${ defaultConfiguration.sessionTimeout }"/>
+                        </td>
+                        <td class="no-color" style="padding-left: 5px">
+                            <form:errors path="sessionTimeout" cssClass="errors" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
 		<br/>
 		<button class="btn btn-primary" type="submit" id="updateDefaultsButton">Save Changes</button>
 	</form:form>

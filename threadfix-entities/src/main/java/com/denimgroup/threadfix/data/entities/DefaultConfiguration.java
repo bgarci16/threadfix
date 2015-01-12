@@ -41,16 +41,19 @@ public class DefaultConfiguration extends BaseEntity {
 	private Boolean globalGroupEnabled = null;
     private Boolean hasAddedScheduledImports = null;
     private Boolean hasAddedScheduledDefectTrackerUpdates = null;
+    private Boolean hasAddedScheduledGRCToolUpdates = null;
     private Integer defaultRoleId = null;
 
     private Boolean hasCachedData = null;
 
-	private String activeDirectoryBase, activeDirectoryURL, activeDirectoryUsername, activeDirectoryCredentials;
+	private String activeDirectoryBase, activeDirectoryURL, activeDirectoryUsername, activeDirectoryCredentials, activeDirectoryUsernameEncrypted, activeDirectoryCredentialsEncrypted;
 
     private String proxyHost = null, proxyUsername = null, proxyPassword = null, proxyUsernameEncrypted = null, proxyPasswordEncrypted = null;
     private Integer proxyPort = null;
 	
 	private Calendar lastScannerMappingsUpdate;
+
+    private Integer sessionTimeout = null;
 
     public static DefaultConfiguration getInitialConfig() {
         DefaultConfiguration config = new DefaultConfiguration();
@@ -58,8 +61,19 @@ public class DefaultConfiguration extends BaseEntity {
         config.setGlobalGroupEnabled(true);
         config.setHasAddedScheduledImports(false);
         config.setHasAddedScheduledDefectTrackerUpdates(false);
+        config.setHasAddedScheduledGRCToolUpdates(false);
         return config;
     }
+
+    @Column
+    public Integer getSessionTimeout() {
+        return sessionTimeout;
+    }
+
+    public void setSessionTimeout(Integer sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+
 
     @Column
     public Boolean getHasAddedScheduledImports() {
@@ -77,6 +91,15 @@ public class DefaultConfiguration extends BaseEntity {
 
     public void setHasAddedScheduledDefectTrackerUpdates(Boolean hasAddedScheduledDefectTrackerUpdates){
         this.hasAddedScheduledDefectTrackerUpdates = hasAddedScheduledDefectTrackerUpdates;
+    }
+
+    @Column
+    public Boolean getHasAddedScheduledGRCToolUpdates() {
+        return hasAddedScheduledGRCToolUpdates != null && hasAddedScheduledGRCToolUpdates;
+    }
+
+    public void setHasAddedScheduledGRCToolUpdates(Boolean hasAddedScheduledGRCToolUpdates){
+        this.hasAddedScheduledGRCToolUpdates = hasAddedScheduledGRCToolUpdates;
     }
 
     @Column
@@ -118,6 +141,7 @@ public class DefaultConfiguration extends BaseEntity {
 	public void setActiveDirectoryURL(String activeDirectoryURL) {
 		this.activeDirectoryURL = activeDirectoryURL;
 	}
+
 	public String getActiveDirectoryUsername() {
 		return activeDirectoryUsername == null ? "" : activeDirectoryUsername;
 	}
@@ -126,18 +150,36 @@ public class DefaultConfiguration extends BaseEntity {
 	public void setActiveDirectoryUsername(String activeDirectoryUsername) {
 		this.activeDirectoryUsername = activeDirectoryUsername;
 	}
-	
+
 	public String getActiveDirectoryCredentials() {
 		return activeDirectoryCredentials == null ? "" : activeDirectoryCredentials;
 	}
-	
-	@Column(length=256)
+
+    @Column(length = 1024)
+    public String getActiveDirectoryUsernameEncrypted() {
+        return activeDirectoryUsernameEncrypted;
+    }
+
+    public void setActiveDirectoryUsernameEncrypted(String activeDirectoryUsernameEncrypted) {
+        this.activeDirectoryUsernameEncrypted = activeDirectoryUsernameEncrypted;
+    }
+
+    @Column(length = 1024)
+    public String getActiveDirectoryCredentialsEncrypted() {
+        return activeDirectoryCredentialsEncrypted;
+    }
+
+    public void setActiveDirectoryCredentialsEncrypted(String activeDirectoryCredentialsEncrypted) {
+        this.activeDirectoryCredentialsEncrypted = activeDirectoryCredentialsEncrypted;
+    }
+
+    	@Column(length=256)
 	public void setActiveDirectoryCredentials(String activeDirectoryCredentials) {
 		this.activeDirectoryCredentials = activeDirectoryCredentials;
 	}
 	
 	public String getActiveDirectoryBase() {
-		return activeDirectoryCredentials == null ? "" : activeDirectoryBase;
+		return activeDirectoryBase == null ? "" : activeDirectoryBase;
 	}
 
 	@Column

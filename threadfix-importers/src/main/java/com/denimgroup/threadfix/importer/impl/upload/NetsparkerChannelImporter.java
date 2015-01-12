@@ -233,25 +233,23 @@ class NetsparkerChannelImporter extends AbstractChannelImporter {
     }
 
     @Override
-    public ScanCheckResultBean checkFile() {
-        return testSAXInput(new NetsparkerSAXValidator());
-    }
+	public ScanCheckResultBean checkFile() {
+		return testSAXInput(new NetsparkerSAXValidator());
+	}
 
-    public class NetsparkerSAXValidator extends DefaultHandler {
-        private boolean hasFindings = false;
-        private boolean hasDate = false;
-        private boolean correctFormat = false;
-
-        private void setTestStatus() {
-            if (!correctFormat)
-                testStatus = ScanImportStatus.WRONG_FORMAT_ERROR;
-            else if (hasDate)
-                testStatus = checkTestDate();
-            if (ScanImportStatus.SUCCESSFUL_SCAN == testStatus && !hasFindings)
-                testStatus = ScanImportStatus.EMPTY_SCAN_ERROR;
-            else if (testStatus == null)
-                testStatus = ScanImportStatus.SUCCESSFUL_SCAN;
-        }
+	public class NetsparkerSAXValidator extends DefaultHandler {
+		private boolean hasFindings = false;
+		private boolean hasDate = false;
+		private boolean correctFormat = false;
+		
+	    private void setTestStatus() {	    	
+	    	if (!correctFormat)
+	    		testStatus = ScanImportStatus.WRONG_FORMAT_ERROR;
+	    	else if (hasDate)
+	    		testStatus = checkTestDate();
+	    	if (testStatus == null)
+	    		testStatus = ScanImportStatus.SUCCESSFUL_SCAN;
+	    }
 
         ////////////////////////////////////////////////////////////////////
         // Event handlers.

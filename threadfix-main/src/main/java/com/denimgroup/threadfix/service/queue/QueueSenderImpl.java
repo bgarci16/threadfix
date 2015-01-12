@@ -50,24 +50,14 @@ import java.util.List;
 public class QueueSenderImpl implements QueueSender {
 	protected final SanitizedLogger log = new SanitizedLogger(QueueSenderImpl.class);
 
-	private JmsTemplate jmsTemplate = null;
-	private JobStatusService jobStatusService = null;
-
-    @Autowired
-    RemoteProviderTypeService remoteProviderTypeService;
-	
-	
-	String jmsErrorString = "The JMS system encountered an error that prevented the message from being correctly created.";
-
-	/**
-	 * @param jmsTemplate
-	 * @param jobStatusService
-	 */
 	@Autowired
-	public QueueSenderImpl(JmsTemplate jmsTemplate, JobStatusService jobStatusService) {
-		this.jmsTemplate = jmsTemplate;
-		this.jobStatusService = jobStatusService;
-	}
+	private JmsTemplate jmsTemplate = null;
+	@Autowired
+	private JobStatusService jobStatusService = null;
+    @Autowired
+    private RemoteProviderTypeService remoteProviderTypeService;
+
+	String jmsErrorString = "The JMS system encountered an error that prevented the message from being correctly created.";
 
 	/*
 	 * (non-Javadoc)
@@ -81,9 +71,21 @@ public class QueueSenderImpl implements QueueSender {
 		send(QueueConstants.DEFECT_TRACKER_VULN_UPDATE_TYPE);
 	}
 
+    /*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * com.denimgroup.threadfix.service.queue.QueueSender#startDefectTrackerSync
+	 * ()
+	 */
+	@Override
+	public void startGrcToolSync() {
+		send(QueueConstants.GRC_CONTROLS_UPDATE_TYPE);
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.denimgroup.threadfix.service.queue.QueueSender#startImportScans()
 	 */

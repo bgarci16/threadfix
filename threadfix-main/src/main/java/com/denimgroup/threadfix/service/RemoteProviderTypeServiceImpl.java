@@ -46,23 +46,14 @@ public class RemoteProviderTypeServiceImpl implements RemoteProviderTypeService 
 
     @Autowired
 	private RemoteProviderTypeDao remoteProviderTypeDao;
-
     @Autowired
 	private RemoteProviderApplicationService remoteProviderApplicationService;
-
     @Autowired
 	private ScanMergeService scanMergeService;
-
     @Autowired
     private RemoteProviderFactory remoteProviderFactory;
-
     @Autowired
     private VulnerabilityService vulnerabilityService;
-
-    @Autowired
-    RemoteProviderTypeServiceImpl (RemoteProviderTypeDao remoteProviderTypeDao) {
-        this.remoteProviderTypeDao = remoteProviderTypeDao;
-    }
 
 	@Override
 	@Transactional
@@ -91,9 +82,9 @@ public class RemoteProviderTypeServiceImpl implements RemoteProviderTypeService 
 						ResponseCode success = importScansForApplication(application);
 						
 						if (!success.equals(ResponseCode.SUCCESS)) {
-							log.info("No scans were imported for Remote Provider application " + application.getNativeId());
+							log.info("No scans were imported for Remote Provider application " + application.getNativeName());
 						} else {
-							log.info("Remote Provider import was successful for application " + application.getNativeId());
+							log.info("Remote Provider import was successful for application " + application.getNativeName());
 						}
 					}
 				}
