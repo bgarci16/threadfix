@@ -1,4 +1,4 @@
-var myAppModule = angular.module('threadfix')
+var myAppModule = angular.module('threadfix');
 
 myAppModule.controller('ApplicationPageModalController', function($scope, $rootScope, $window, $log, $http, $modal, tfEncoder, timeoutService) {
 
@@ -67,6 +67,25 @@ myAppModule.controller('ApplicationPageModalController', function($scope, $rootS
                     $scope.successMessage = data.object;
                 } else {
                     $log.info("Request to update defect statuses failed. Error was " + data.message);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                timeoutService.cancel();
+                $log.info("HTTP request for form objects failed.");
+                // TODO improve error handling and pass something back to the users
+                $scope.errorMessage = "Request to server failed. Got " + status + " response code.";
+            });
+    };
+
+    $scope.updateControlStatus = function() {
+        timeoutService.timeout();
+        $http.get(tfEncoder.encode(currentUrl + "/controls/update")).
+            success(function(data, status, headers, config) {
+                timeoutService.cancel();
+                if (data.success) {
+                    $scope.successMessage = data.object;
+                } else {
+                    $log.info("Request to update GRC controls failed. Error was " + data.message);
                 }
             }).
             error(function(data, status, headers, config) {
