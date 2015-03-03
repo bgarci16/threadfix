@@ -62,6 +62,7 @@ public class DocumentIT extends BaseIT {
 				} else {
 					appScanFile = new File(mapEntry.getValue());
 				}
+				System.out.println(appScanFile);
 				assertTrue("The test file did not exist.", appScanFile.exists());
 			} else {
 				continue;
