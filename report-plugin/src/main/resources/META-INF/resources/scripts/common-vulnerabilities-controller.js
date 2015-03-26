@@ -5,6 +5,13 @@ myAppModule.controller('CommonVulnerabilitiesController', function ($scope, $win
     $scope.$on('rootScopeInitialized', function() {
         $scope.heading = 'Common Vulnerabilities';
 
+        $scope.level = 1;
+
+        $scope.setActive = function(n){
+            $scope.level = n;
+
+        };
+
         $http.post(tfEncoder.encode("reportplugin/commv/" + $scope.level)).
             success(function (data) {
                 $scope.cwe = null;
