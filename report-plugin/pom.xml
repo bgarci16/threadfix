@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--rename artifact ID on name of plugin-->
-    <artifactId>plugin-name-report</artifactId>
+    <artifactId>plugin-report</artifactId>
     <!--add description for plugin-->
     <description>Contains functionality for...</description>
 
